@@ -20,8 +20,21 @@ export async function connectToMongoDB() {
   }
 }
 
+const mongoClient = await connectToMongoDB();
+const db = mongoClient.db('NeighborNest');
+const eventsCollection = db.collection('events');
+
+
+
 app.get('/', (req, res) => {
   res.send('Welcome to the Neighbor Nest Server!');
+});
+
+// http://localhost:5000/create-event
+app.post('/create-event', async (req, res) => {
+  const eventData = req.body;
+  const result = await eventsCollection.insertOne(eventData);
+  res.json(result);
 });
 
 app.listen(port, () => {
