@@ -67,6 +67,14 @@ app.get('/my-joined-events/:email', async(req, res) => {
   res.send(joinedEvents);
 });
 
+// http://localhost:5000/my-events/:email 
+app.get('/my-events/:email', async(req, res) => {
+  const email = req.params.email;
+  const query = { "creator.email": email };
+  const myEvents = await eventsCollection.find(query).toArray();
+  res.send(myEvents);
+});
+
 
 app.listen(port, () => {
   console.log(`Neighbor Nest listening on port ${port}`);
