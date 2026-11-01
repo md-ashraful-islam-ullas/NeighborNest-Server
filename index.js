@@ -91,6 +91,12 @@ app.get("/my-events/:email", async (req, res) => {
   res.send(myEvents);
 });
 
+// http://localhost:5000/featured-events
+app.get('/featured-events', async (req, res) => {
+  const result = await eventsCollection.find().limit(6).toArray();
+  res.send(result);
+});
+
 app.listen(port, () => {
   console.log(`Neighbor Nest listening on port ${port}`);
 });
