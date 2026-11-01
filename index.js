@@ -61,6 +61,13 @@ app.patch("/events/:id", async (req, res) => {
   res.send(result);
 });
 
+// http://localhost:5000/events/:id
+app.delete("/events/:id", async (req, res) => {
+  const { id } = req.params;
+  const result = await eventsCollection.deleteOne({ _id: new ObjectId(id) });
+  res.send(result);
+});
+
 // http://localhost:5000/join-event
 app.post("/join-event", async (req, res) => {
   const joinEventData = req.body;
