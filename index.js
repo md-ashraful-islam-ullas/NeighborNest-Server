@@ -59,6 +59,15 @@ app.post('/join-event', async (req, res) => {
   res.send(result);
 });
 
+// http://localhost:5000/my-joined-events/:email
+app.get('/my-joined-events/:email', async(req, res) => {
+  const email = req.params.email;
+  const query = { email: email };
+  const joinedEvents = await joinEventsCollection.find(query).toArray();
+  res.send(joinedEvents);
+});
+
+
 app.listen(port, () => {
   console.log(`Neighbor Nest listening on port ${port}`);
 });
