@@ -23,7 +23,7 @@ export async function connectToMongoDB() {
 const mongoClient = await connectToMongoDB();
 const db = mongoClient.db('NeighborNest');
 const eventsCollection = db.collection('events');
-
+const joinEventsCollection = db.collection('joinEvents');
 
 
 app.get('/', (req, res) => {
@@ -50,6 +50,13 @@ app.get('/events/:id', async (req, res) => {
   const query = { _id: new ObjectId(id) };
   const event = await eventsCollection.findOne(query);
   res.send(event);
+});
+
+// http://localhost:5000/join-event
+app.post('/join-event', async (req, res) => {
+  const joinEventData = req.body;
+  const result = await joinEventsCollection.insertOne(joinEventData);
+  res.send(result);
 });
 
 app.listen(port, () => {
