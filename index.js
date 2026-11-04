@@ -122,3 +122,5 @@ app.get('/featured-events', async (req, res) => {
 app.listen(port, () => {
   console.log(`Neighbor Nest listening on port ${port}`);
 });
+
+export default app;
